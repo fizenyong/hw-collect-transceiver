@@ -51,9 +51,8 @@ Huawei VRP5 network devices. Tested on 300+ devices of:
 * Huawei S12700E of V200R019
 
 ## How It Works
-1. Establish SSH connection to devices
-2. Send command `display transceiver` to get optical module information
-3. Parse the CLI output to csv formatted file
+1. `ssh-collect-transceiver.py` send command `display transceiver` to get optical module information, saving CLI output stream to logs folder
+2. `parse-transceiver.py` parse the CLI output of logs folder to csv formatted file
 
 ## Device CLI Logging
 Raw CLI stream output saved at logs folder
