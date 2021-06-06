@@ -43,8 +43,8 @@ def get_config(task: Task, pbar: tqdm):
 def check_result(result: Result):
     if result.failed == True:
         print(f"{Style.BRIGHT}{Fore.RED}Failed hosts: check nornir.log for Traceback")
-        for host in result:
-            print(host)
+        for host in result.failed_hosts:
+            print(f"{Style.BRIGHT}{Fore.RED} {host}")
 
 
 if __name__ == "__main__":
