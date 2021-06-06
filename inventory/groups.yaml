@@ -1,0 +1,9 @@
+##Supported Platform: https://github.com/ktbyers/netmiko/blob/master/netmiko/ssh_dispatcher.py
+---
+Switch:
+  username: admin
+  platform: huawei
+
+Test:
+  username: admin
+  platform: huawei

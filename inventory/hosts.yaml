@@ -1,0 +1,9 @@
+---
+AD-MDF-AS-S5731-STACK-01:
+  groups:
+    - Test
+  hostname: 192.168.1.1
+AM-AS-S5731-STACK-01:
+  groups:
+    - Switch
+  hostname: 10.1.1.1
