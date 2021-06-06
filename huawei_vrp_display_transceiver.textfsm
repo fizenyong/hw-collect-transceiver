@@ -1,0 +1,44 @@
+Value Required INTERFACE ([\w\d\/]+)
+Value SFP_TYPE ([\S\s]+)
+Value CON_TYPE ([\w\s-]+)
+Value WAVELENGTH ([\d-]+)
+Value VENDOR ([\S\s]+)
+Value ESN ([\w\d]+)
+
+
+Start
+  ^${INTERFACE}\s+transceiver\s+information:$$ -> Mid
+  ^Info:\s+Port\s+X?GigabitEthernet[\d\/]+,\s+transceiver\s+is\s+absent.
+  ^Info:\s+Port\s+\d+GE[\d\/]+,\s+transceiver\s+is\s+absent.
+  ^Info:\s+Port\s+GigabitEthernet[\d\/]+,\s+valid\s+only\s+on\s+optical\s+interface\.
+  ^Alarm\s+information:
+  ^\s+RX\s+
+  ^\s+TX\s+
+  ^-+$$
+  ^\s*$$
+  ^. -> Error
+
+Mid
+ ^-+$$ -> CInfo
+ ^. -> Error
+  
+CInfo
+  ^Common\s+information:$$
+  ^\s+Transceiver\s+Type\s+:${SFP_TYPE}$$
+  ^\s+Connector\s+Type\s+:${CON_TYPE}$$
+  ^\s+Wavelength\(nm\)\s+:${WAVELENGTH}$$
+  ^\s+Transfer\s+Distance\(m\)\s+:[\S]+$$
+  ^\s+Digital\s+Diagnostic\s+Monitoring\s+:[\S]+$$
+  ^\s+Vendor\s+Name\s+:${VENDOR}$$
+  ^\s+Vendor\s+Part\s+Number\s+:[\S]+$$
+  ^\s+Ordering\s+Name\s+:[\S]*$$
+  ^-+$$ -> MInfo
+  ^. -> Error
+
+MInfo
+  ^^Manufacture\s+information:$$
+  ^\s+Manu\.\s+Serial\s+Number\s+:${ESN}$$
+  ^\s+Manufacturing\s+Date\s+:[\S]+$$
+  ^\s+Vendor\s+Name\s+:[\S\s]+$$
+  ^-+$$ -> Record Start
+  ^. -> Error
